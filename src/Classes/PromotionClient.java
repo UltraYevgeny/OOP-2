@@ -11,7 +11,7 @@ public class PromotionClient implements iActorBehaviour {
     private boolean isMakeOrder = false;
 
     public PromotionClient(String name, String promotionName, int idClient) {
-        PromotionClient.numberOfHumans = 10;
+        PromotionClient.numberOfHumans = 4;
         this.name = name;
         this.promotionName = promotionName;
         this.idClient = idClient;

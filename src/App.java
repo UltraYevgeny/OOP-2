@@ -23,15 +23,15 @@ public class App {
         magnit.acceptToMarket(client4);
         magnit.acceptToMarket(client5);
 
+
+        System.out.println("\n =================================");
         magnit.update();
 
         System.out.println("\n!!!!!! Возврат товара !!!!!!");
         magnit.returnInMarket(client2);
         magnit.returnInMarket(client5);
-        magnit.returnInMarket(client3);
 
         magnit.returnProduct();
-
 
     }
 }

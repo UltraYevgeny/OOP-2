@@ -21,15 +21,35 @@ public class Market implements iMarcketBehaviour,iQueueBehaviour,iReturnOrder {
     @Override
     public void acceptToMarket(iActorBehaviour actor) {
         System.out.println(actor.geActor().getName() + " клиент пришел в магазин ");
-        //System.out.println(actor.geActor().);
         takeInQueue(actor);
     }
 
     @Override
     public void takeInQueue(iActorBehaviour actor) {
-        this.queue.add(actor);
-        System.out.println(actor.geActor().getName() + " клиент добавлен в очередь ");
+        // Проверка акционный клиент или нет
+        if (actor.getClass() == PromotionClient.class) {
+            PromotionClient clientX;
+            clientX = (PromotionClient) actor;
+            System.out.println("Face conrol! Promotion Client Name: " + clientX.getName());
+            System.out.println("Promotion Name: " + clientX.getPromotionName());
+            System.out.println("ID Client: " + clientX.getIdClient());
+            System.out.println("Number Of Humans in Promotion: " + PromotionClient.getNumberOfHumans());
+            // Проверка количества акционных клиентов
+            if (PromotionClient.getNumberOfHumans() > 3){
+                System.out.println(actor.geActor().getName() 
+                    + " НЕ добавлен в очередь т.к. число акционных клиентов меньше");
+            }
+            else {
+                this.queue.add(actor);
+                System.out.println(actor.geActor().getName() + " АКЦИОННЫЙ клиент добавлен в очередь ");
+            }
+        }
+        else {
+            this.queue.add(actor);
+            System.out.println(actor.geActor().getName() + " клиент добавлен в очередь ");
+        }
     }
+
 
     @Override
     public void releseFromMarket(List<Actor> actors) {
@@ -86,14 +106,6 @@ public class Market implements iMarcketBehaviour,iQueueBehaviour,iReturnOrder {
     @Override
     public void returnInMarket(iActorBehaviour actor) {
         System.out.println(actor.geActor().getName() + " клиент ВЕРНУЛСЯ в магазин ");
-        if (actor.getClass() == PromotionClient.class) {
-            PromotionClient clientX;
-            clientX = (PromotionClient) actor;
-            System.out.println("Face conrol! Promotion Client Name: " + clientX.getName());
-            System.out.println("Promotion Name: " + clientX.getPromotionName());
-            System.out.println("ID Client: " + clientX.getIdClient());
-            System.out.println("Number Of Humans in Promotion: " + PromotionClient.getNumberOfHumans());
-        }
         takeNewQueue(actor);
     }
 
